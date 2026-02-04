@@ -3,277 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UMAIR KHAN - 1DollarGames</title>
+    <title>UMAIR KHAN - Premium Gaming Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* Prism Flux Theme Colors */
-        :root {
-            --primary-black: #0a0a0a;
-            --carbon-dark: #121212;
-            --accent-purple: #9945ff;
-            --accent-cyan: #00ffff;
-            --accent-green: #25d366;
-            --text-primary: #ffffff;
-            --price-color: #00ff88;
+        /* Base Styles */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', 'Noto Sans Arabic', Tahoma, sans-serif; 
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--primary-black);
-            color: var(--text-primary);
-            margin: 0;
-            overflow-x: hidden;
+        
+        body { 
+            background: linear-gradient(135deg, #0b0e14 0%, #1a1f29 100%); 
+            color: #fff; 
+            min-height: 100vh;
         }
-
-        /* Animated Background Grid */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(153, 69, 255, 0.05) 2px, transparent 2px), 
-                              linear-gradient(90deg, rgba(153, 69, 255, 0.05) 2px, transparent 2px);
-            background-size: 80px 80px;
-            z-index: -1;
+        
+        /* Live Clock */
+        .live-clock { 
+            position: fixed; 
+            top: 15px; 
+            right: 15px; 
+            z-index: 1001; 
+            background: rgba(0, 0, 0, 0.8); 
+            border: 2px solid #ff0080; 
+            border-radius: 25px; 
+            padding: 8px 20px; 
+            font-weight: bold; 
+            color: #00ff00;
+            backdrop-filter: blur(10px);
         }
-
-        .header {
-            background: rgba(18, 18, 18, 0.95);
-            backdrop-filter: blur(15px);
-            padding: 25px;
+        
+        /* Header */
+        .header { 
+            background: linear-gradient(90deg, #000000 0%, #1a1a1a 100%); 
+            padding: 20px 0; 
+            position: sticky; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 3px solid #00ffff; 
             text-align: center;
-            border-bottom: 3px solid var(--accent-purple);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(153, 69, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
         }
-
-        .logo-text {
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        
+        .logo h1 { 
+            color: #00ffff; 
+            text-transform: uppercase; 
+            font-size: 1.8rem; 
+            background: linear-gradient(45deg, #00ffff, #0080ff); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin-bottom: 5px;
         }
-
-        .search-container { padding: 30px 20px; max-width: 700px; margin: 0 auto; }
-        .search-box {
-            width: 100%;
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: 2px solid var(--accent-purple);
-            background: var(--carbon-dark);
-            color: white;
-            font-size: 1.1rem;
+        
+        .logo p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Search */
+        .search-container { 
+            padding: 30px 15px; 
+            text-align: center; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .search-box { 
+            width: 100%; 
+            max-width: 600px; 
+            padding: 15px 25px; 
+            border-radius: 30px; 
+            border: 2px solid #ff0080; 
+            background: rgba(22, 27, 34, 0.9); 
+            color: #fff; 
             outline: none;
-            transition: 0.3s;
+            font-size: 16px;
+            transition: all 0.3s;
         }
-        .search-box:focus { box-shadow: 0 0 20px var(--accent-purple); }
-
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-
-        .card {
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
-            border: 1px solid #333;
-            border-radius: 20px;
+        
+        .search-box:focus {
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.5);
+        }
+        
+        /* Grid */
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 20px 15px; 
+        }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 30px; 
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+        
+        .card { 
+            background: linear-gradient(145deg, #161b22, #1e242e); 
+            border-radius: 15px; 
+            overflow: hidden; 
+            border: 2px solid #333; 
+            transition: all 0.3s ease; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card:hover { 
+            border-color: #00ffff; 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+        }
+        
+        .img-container { 
+            width: 100%; 
+            height: 200px; 
+            background: #000;
+            position: relative;
             overflow: hidden;
-            transition: 0.4s ease;
-            display: flex;
-            flex-direction: column;
         }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.2);
+        
+        .img-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            transition: transform 0.5s;
         }
-
-        .img-box { width: 100%; height: 230px; object-fit: cover; border-bottom: 1px solid #222; }
-
-        .content { padding: 20px; text-align: center; flex-grow: 1; }
-        .game-title { font-size: 1.3rem; color: var(--accent-cyan); margin-bottom: 10px; height: 50px; display: flex; align-items: center; justify-content: center; }
-        .price { font-size: 1.8rem; color: var(--price-color); font-weight: bold; margin: 15px 0; }
-
-        .wa-btn {
-            background: var(--accent-green);
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 12px;
+        
+        .card:hover .img-container img {
+            transform: scale(1.05);
+        }
+        
+        .content { 
+            padding: 20px; 
+            text-align: center; 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+        }
+        
+        .game-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+        }
+        
+        .rating {
+            color: #ffd700;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .price { 
+            font-size: 1.5rem; 
+            color: #00ff00; 
+            font-weight: bold; 
+            margin: 15px 0; 
+            background: rgba(0, 255, 0, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .wa-btn { 
+            background: linear-gradient(45deg, #25d366, #128C7E); 
+            color: white; 
+            text-decoration: none; 
+            padding: 12px; 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px; 
             font-weight: bold;
-            transition: 0.3s;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
         }
-        .wa-btn:hover { filter: brightness(1.2); transform: scale(1.05); }
-
-        .about-section {
-            background: rgba(26, 26, 26, 0.9);
-            padding: 50px;
-            margin: 60px 0;
-            border-radius: 30px;
-            border: 2px solid var(--accent-purple);
+        
+        .wa-btn:hover {
+            background: linear-gradient(45deg, #128C7E, #25d366);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        /* Footer & Social Icons */
+        footer { 
+            text-align: center; 
+            padding: 40px 20px; 
+            background: rgba(0, 0, 0, 0.9); 
+            margin-top: 50px; 
+            border-top: 2px solid #00ffff; 
+        }
+        
+        .social-icons { 
+            display: flex; 
+            justify-content: center; 
+            gap: 25px; 
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icons a { 
+            color: #fff; 
+            font-size: 1.8rem; 
+            transition: all 0.3s; 
+            text-decoration: none; 
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-icons a:hover { 
+            transform: scale(1.2) rotate(5deg);
+        }
+        
+        .social-icons .fa-facebook { 
+            background: linear-gradient(45deg, #1877F2, #0d5cb6);
+        }
+        
+        .social-icons .fa-instagram { 
+            background: linear-gradient(45deg, #E4405F, #c13584);
+        }
+        
+        .social-icons .fa-telegram { 
+            background: linear-gradient(45deg, #0088cc, #006699);
+        }
+        
+        .social-icons .fa-tiktok { 
+            background: linear-gradient(45deg, #000000, #69C9D0);
+        }
+        
+        .social-icons .fa-envelope { 
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+        }
+        
+        .social-icons .fa-whatsapp { 
+            background: linear-gradient(45deg, #25d366, #128C7E);
+        }
+        
+        .footer-text { 
+            opacity: 0.8; 
+            font-size: 0.9rem; 
+            margin-top: 10px; 
+            color: #aaa;
+        }
+        
+        .footer-text p {
+            margin: 5px 0;
+        }
+        
+        /* Game Counter */
+        .game-counter {
             text-align: center;
+            margin: 20px 0;
+            color: #00ffff;
+            font-size: 1rem;
         }
-
-        .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 30px; }
-        .social-links a { color: var(--accent-cyan); font-size: 3rem; transition: 0.3s; }
-        .social-links a:hover { color: var(--accent-purple); transform: translateY(-5px); }
-
-        footer { text-align: center; padding: 40px; color: #666; border-top: 1px solid #222; }
+        
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #ff5555;
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
     </style>
 </head>
 <body>
 
+    <div class="live-clock" id="liveClock">
+        <i class="fas fa-clock"></i> 
+        <span id="time"></span>
+    </div>
+
     <header class="header">
-        <div class="logo-text">UMAIR KHAN GAMING STORE</div>
+        <div class="logo">
+            <h1>UMAIR KHAN Premium Gaming Store</h1>
+            <p>بہترین پی سی گیمز کم قیمت پر | وائرس سے مکمل صاف</p>
+        </div>
     </header>
 
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-box" placeholder="گیم کا نام یہاں لکھیں..." onkeyup="searchGame()">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 گیم کا نام سرچ کریں (جیسے: GTA, Sniper, Crysis...)">
+        <div class="game-counter" id="gameCounter"></div>
     </div>
 
     <div class="container">
         <div class="grid" id="gameGrid">
-            
-            <div class="card" data-name="Far Cry 3">
-                <img src="https://i.ibb.co/vCLXjzXY/Far-Cry-3-PAL-box-art-1.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Far Cry 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="GTA Vice City">
-                <img src="https://img.sanishtech.com/u/bb1c29618e8394739833467d54d54409.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">GTA Vice City</h3><div class="price">Rs 20</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="GTA San Andreas">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/12120/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">GTA San Andreas</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="GTA IV">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/12210/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">GTA IV</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="GTA V">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">GTA V</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Project I.G.I">
-                <img src="https://img.sanishtech.com/u/63a2d1fc0e87926e6ffd5206b5426246.jpeg" class="img-box">
-                <div class="content"><h3 class="game-title">Project I.G.I</h3><div class="price">Rs 10</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Tekken Tag">
-                <img src="https://img.sanishtech.com/u/dbca0feac583ee8321c31e395ad23749.webp" class="img-box">
-                <div class="content"><h3 class="game-title">Tekken Tag</h3><div class="price">Rs 20</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="House of the Dead 2">
-                <img src="https://img.sanishtech.com/u/069f6ad5c2332de255646346917b4828.webp" class="img-box">
-                <div class="content"><h3 class="game-title">House of the Dead 2</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="House of the Dead 3">
-                <img src="https://img.sanishtech.com/u/6e85c650e4d7510aa81f346cc5d19e73.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">House of the Dead 3</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Sniper Ghost Warrior 2">
-                <img src="https://i.ibb.co/S7XcCZBg/1001060093.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Sniper Ghost Warrior 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Sniper Elite V2">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/728740/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Sniper Elite V2</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Crysis 2">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/108800/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Crysis 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Crysis 3">
-                <img src="https://img.sanishtech.com/u/c6f595ea4dfea14d4664dddfe26c7a9e.jpeg" class="img-box">
-                <div class="content"><h3 class="game-title">Crysis 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Battlefield: Bad Company 2">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/24960/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Battlefield: BC 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Indiana Jones">
-                <img src="https://img.sanishtech.com/u/c4a0754f4b308258468f3f370ef4c7c7.png" class="img-box">
-                <div class="content"><h3 class="game-title">Indiana Jones</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Commandos Strike Force">
-                <img src="https://img.sanishtech.com/u/5f9ce842bba9c26723d8c37c0df44996.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Commandos</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="SWAT 4">
-                <img src="https://img.sanishtech.com/u/0e4653b44c7c95153aa1d1db60c09608.jpeg" class="img-box">
-                <div class="content"><h3 class="game-title">SWAT 4</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="F.E.A.R. 3">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21100/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">F.E.A.R. 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Spec Ops: The Line">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/50300/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Spec Ops: The Line</h3><div class="price">Rs 60</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Ether One">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/265950/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Ether One</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-            <div class="card" data-name="Tomb Raider Anniversary">
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/8000/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Tomb Raider</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
-
-        </div>
-
-        <div class="about-section">
-            <h2 style="color: var(--accent-cyan); margin-bottom: 20px;">رابطہ کی معلومات</h2>
-            <p style="font-size: 1.3rem;">نام: <strong>عمیر خان</strong></p>
-            <p style="font-size: 1.1rem;">مقام: مردان، خیبر پختونخوا</p>
-            <a href="tel:03128310019" style="color:var(--accent-cyan); font-size:1.5rem; text-decoration:none;">0312-8310019</a>
-            
-            <div class="social-links">
-                <a href="https://www.facebook.com/share/18Bd1sQzxo/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.tiktok.com/@umair1ahmed0" target="_blank"><i class="fab fa-tiktok"></i></a>
-            </div>
+            <!-- Games will be loaded here by JavaScript -->
         </div>
     </div>
 
     <footer>
-        <p>© 2026 UMAIR KHAN | Gaming Store Website</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/1854cZXGKy/" target="_blank" title="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/umair_khan_dil" target="_blank" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://t.me/umair_khan_dil" target="_blank" title="Telegram">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@umair1ahmed0" target="_blank" title="TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="mailto:um327555@gmail.com" title="Email Us">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://wa.me/923128310019" target="_blank" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+        <div class="footer-text">
+            <p>© 2026 Premium Gaming Store | تمام حقوق محفوظ ہیں</p>
+            <p>وائرس سے بالکل صاف ستھری گیمز | 🇵🇰 | 🛡️✅ 100% سیف</p>
+            <p>UMAIR KHAN - Karachi, Pakistan</p>
+        </div>
     </footer>
 
     <script>
-        function searchGame() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('card');
-            for (let i = 0; i < cards.length; i++) {
-                let name = cards[i].getAttribute('data-name').toLowerCase();
-                cards[i].style.display = name.includes(input) ? "flex" : "none";
+        const games = [
+            { name: "GTA Vice City", price: "Rs 50", image: "https://i.ibb.co/nMvXwjYZ/Vice-city-cover.jpg", rating: 4.5 },
+            { name: "House of the Dead 2", price: "Rs 50", image: "https://i.ibb.co/gL4Nhq6k/House-Of-The-Dead-2-Thelogo.png", rating: 4.0 },
+            { name: "House of the Dead 3", price: "Rs 50", image: "https://i.ibb.co/TMYpZ6y6/MV5-BYjgx-N2-M1-Y2-Yt-Nm-Ex-Yi00-NGRj-LWJi-Nz-Yt-MDI1-Mz-M1-MWM3-ZTIw-Xk-Ey-Xk-Fqc-Gc-V1-QL75-UX190-CR0-2-19.jpg", rating: 4.2 },
+            { name: "Tekken Tag", price: "Rs 50", image: "https://i.ibb.co/GQ1mJN0Q/Tekken-Tag-Tournament.jpg", rating: 4.7 },
+            { name: "SWAT 4", price: "Rs 50", image: "https://i.ibb.co/SwwLmwCC/SWAT-4-Coverart.png", rating: 4.3 },
+            { name: "Commandos Strike Force", price: "Rs 50", image: "https://i.ibb.co/Qv2gw7nW/Commandos-Strike-Force.jpg", rating: 4.1 },
+            { name: "Crysis 3", price: "Rs 100", image: "https://i.ibb.co/R4VqQY9C/images-1.jpg", rating: 4.8 },
+            { name: "Indiana Jones", price: "Rs 50", image: "https://i.ibb.co/WvNmKLNw/Indiana-Jones-and-the-Emperor-s-Tomb-Coverart.png", rating: 4.0 },
+            { name: "Project I.G.I", price: "Rs 50", image: "https://i.ibb.co/cV5YM2y/images-1.webp", rating: 4.4 },
+            { name: "New Action Adventure", price: "Rs 50", image: "https://img.sanishtech.com/u/300591dfb7b1f2481f8931f225f346b8.jpg", rating: 4.2 },
+            { name: "GTA San Andreas", price: "Rs 50", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/12120/header.jpg", rating: 4.9 },
+            { name: "GTA IV", price: "Rs 100", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/12210/header.jpg", rating: 4.7 },
+            { name: "GTA V", price: "Rs 100", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg", rating: 5.0 },
+            { name: "Battlefield: BC 2", price: "Rs 100", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/24960/header.jpg", rating: 4.6 },
+            { name: "Sniper Ghost Warrior 2", price: "Rs 100", image: "https://i.ibb.co/S7XcCZBg/1001060093.jpg", rating: 4.3 },
+            { name: "Sniper Elite V2", price: "Rs 100", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/728740/header.jpg", rating: 4.5 },
+            { name: "Crysis 2", price: "Rs 100", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/108800/header.jpg", rating: 4.7 },
+            { name: "F.E.A.R. 3", price: "Rs 100", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21100/header.jpg", rating: 4.4 },
+            { name: "Spec Ops: The Line", price: "Rs 100", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/50300/header.jpg", rating: 4.6 },
+            { name: "Ether One", price: "Rs 100", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/265950/header.jpg", rating: 4.2 },
+            { name: "Tomb Raider: Anniversary", price: "Rs 50", image: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/8000/header.jpg", rating: 4.5 }
+        ];
+
+        function displayGames(filter = "") {
+            const grid = document.getElementById('gameGrid');
+            const counter = document.getElementById('gameCounter');
+            
+            // Filter games
+            const filteredGames = games.filter(game => 
+                game.name.toLowerCase().includes(filter.toLowerCase())
+            );
+            
+            // Update counter
+            counter.textContent = `کل گیمز: ${filteredGames.length} (مجموعی: ${games.length})`;
+            
+            // Clear grid
+            grid.innerHTML = "";
+            
+            // Display games or no results message
+            if (filteredGames.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <h3>کوئی گیم نہیں ملی</h3>
+                        <p>"${filter}" کے لیے کوئی گیم نہیں ملی۔ براہ کرم مختلف نام سے سرچ کریں۔</p>
+                    </div>`;
+                return;
             }
+            
+            // Display filtered games
+            filteredGames.forEach(game => {
+                const stars = getStarRating(game.rating);
+                
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="img-container">
+                            <img src="${game.image}" alt="${game.name}" onerror="this.src='https://via.placeholder.com/300x200/161b22/ffffff?text=Game+Image'">
+                        </div>
+                        <div class="content">
+                            <h3 class="game-title">${game.name}</h3>
+                            <div class="rating">${stars}</div>
+                            <div class="price">${game.price}</div>
+                            <a href="https://wa.me/923128310019?text=میں%20${encodeURIComponent(game.name)}%20خریدنا%20چاہتا%20ہوں%20-%20Umair%20Khan%20Gaming%20Store" 
+                               class="wa-btn" target="_blank">
+                                <i class="fab fa-whatsapp"></i> Buy Now
+                            </a>
+                        </div>
+                    </div>`;
+            });
         }
+        
+        function getStarRating(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            stars += ` <span style="color: #aaa; font-size: 0.8rem;">(${rating})</span>`;
+            return stars;
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            displayGames(e.target.value);
+        });
+        
+        // Live clock
+        function updateTime() { 
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ur-PK', {
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('time').innerText = timeString;
+        }
+        
+        setInterval(updateTime, 1000);
+        updateTime();
+        displayGames();
     </script>
 </body>
 </html>
